@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Link from 'next/link'
-import { ArrowUpRight, Menu } from 'lucide-react'
+import { Navbar } from '../components/navbar'
 
 export const metadata: Metadata = {
   title: 'Zarel Technologies | Engineering Growth',
@@ -19,24 +19,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#0A0A0B] text-slate-50 font-sans selection:bg-[#CEFF00] selection:text-black antialiased flex flex-col">
         
         {/* Global Navbar */}
-        <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-[#0A0A0B]/80 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <Link href="/" className="text-2xl font-black tracking-tighter text-white">
-              ZAREL<span className="text-[#CEFF00]">.</span>
-            </Link>
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-              <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-              <Link href="/portfolio" className="hover:text-white transition-colors">Work</Link>
-              <Link href="/blog" className="hover:text-white transition-colors">Insights</Link>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/contact" className="hidden md:flex items-center gap-2 bg-[#CEFF00] text-black px-5 py-2.5 rounded-full font-bold hover:bg-[#b3ff00] transition-colors">
-                Get Started <ArrowUpRight className="w-4 h-4" />
-              </Link>
-              <button className="md:hidden text-white"><Menu /></button>
-            </div>
-          </div>
-        </nav>
+        <Navbar />
 
         {/* Main Page Content */}
         <main className="flex-1 pt-20">
