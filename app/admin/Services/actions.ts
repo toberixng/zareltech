@@ -3,6 +3,15 @@
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
+export async function deleteService(id: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('services').delete().eq('id', id)
+  if (error) console.error("Error deleting service:", error.message)
+  
+  revalidatePath('/admin/services')
+  revalidatePath('/services')
+}
+
 export async function saveService(serviceId: string, formData: FormData) {
   const supabase = await createClient()
 
