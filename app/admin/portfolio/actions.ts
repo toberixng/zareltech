@@ -47,3 +47,50 @@ export async function createProject(formData: FormData) {
   revalidatePath('/portfolio')
   return { success: true }
 }
+
+export async function getProject(id: string) {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from('projects').select('*').eq('id', id).single()
+  
+  if (error) return { error: error.message }
+  return { project: data }
+}
+
+export async function updateProject(id: string, formData: FormData) {
+  const supabase = await createClient()
+
+  const title = formData.get('title') as string
+  const slug = formData.get('slug') as string
+  const client = formData.get('client') as string
+  const category = formData.get('category') as string
+  const overview = formData.get('overview') as string
+  const challenge = formData.get('challenge') as string
+  const solution = formData.get('solution') as string
+  const published = formData.get('published') === 'true'
+  const imageFile = formData.get('image') as File | null
+  
+  const rawResults = formData.get('results') as string
+  const results = rawResults.split('\n').map(line => line.trim()).filter(line => line.length > 0)
+
+  const updateData: any = { title, slug, client, category, overview, challenge, solution, results, published }
+
+  if (imageFile && imageFile.size > 0) {
+    const fileExt = imageFile.name.split('.').pop()
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+    
+    const { error: uploadError } = await supabase.storage.from('images').upload(fileName, imageFile)
+    if (uploadError) return { error: `Image upload failed: ${uploadError.message}` }
+
+    const { data } = supabase.storage.from('images').getPublicUrl(fileName)
+    updateData.image_url = data.publicUrl
+  }
+
+  const { error } = await supabase.from('projects').update(updateData).eq('id', id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/admin/portfolio')
+  revalidatePath('/portfolio')
+  revalidatePath(`/portfolio/${slug}`)
+  return { success: true }
+}
