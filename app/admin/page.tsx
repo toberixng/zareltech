@@ -57,7 +57,7 @@ export default async function AdminDashboard() {
         {/* Blog Stats Card */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
           <h2 className="text-lg font-medium text-gray-600">Active Blog Posts</h2>
-          <p className="text-4xl font-bold text-blue-600 mt-2 flex-grow">{blogCount || 0}</p>
+          <p className="text-4xl font-bold text-blue-600 mt-2 grow">{blogCount || 0}</p>
           <Link 
             href="/admin/blog" 
             className="text-sm font-medium text-blue-500 hover:text-blue-700 mt-4 transition-colors"
@@ -69,7 +69,7 @@ export default async function AdminDashboard() {
         {/* Portfolio Stats Card */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
           <h2 className="text-lg font-medium text-gray-600">Portfolio Projects</h2>
-          <p className="text-4xl font-bold text-emerald-600 mt-2 flex-grow">{portfolioCount || 0}</p>
+          <p className="text-4xl font-bold text-emerald-600 mt-2 grow">{portfolioCount || 0}</p>
           <Link 
             href="/admin/portfolio" 
             className="text-sm font-medium text-emerald-500 hover:text-emerald-700 mt-4 transition-colors"
@@ -81,7 +81,7 @@ export default async function AdminDashboard() {
         {/* Services Stats Card */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
           <h2 className="text-lg font-medium text-gray-600">Active Services</h2>
-          <p className="text-4xl font-bold text-purple-600 mt-2 flex-grow">{servicesCount || 0}</p>
+          <p className="text-4xl font-bold text-purple-600 mt-2 grow">{servicesCount || 0}</p>
           <Link 
             href="/admin/services" 
             className="text-sm font-medium text-purple-500 hover:text-purple-700 mt-4 transition-colors"
